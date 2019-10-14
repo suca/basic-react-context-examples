@@ -2,6 +2,8 @@ import React from 'react';
 import Header from './Header';
 import MessageList from './MessageList';
 import { UserConsumer } from './UserContext'
+import { EmailConsumer } from './EmailContext';
+import MessageViewer from './MessageViewer';
 const MyFooter = () => (
   <UserConsumer>
     {
@@ -11,11 +13,17 @@ const MyFooter = () => (
 );
 
 const MainPage = () => (
-  <main>
-    <Header/>
-    <MessageList />
-    <MyFooter/>
-  </main>
+  <EmailConsumer>
+    {({currentEmail}) => {
+      return (
+        <main>
+          <Header/>
+          {currentEmail ? <MessageViewer /> : <MessageList />}
+          <MyFooter/>
+        </main>
+      );
+    }}
+  </EmailConsumer>
 );
 
 export default MainPage;
