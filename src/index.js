@@ -2,36 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import LoginPage from './LoginPage';
 import MainPage from './MainPage';
-import UserContext from './UserContext';
-import { FAKE_USER } from './api';
+import { UserProvider, UserConsumer } from './UserContext';
+
 import './index.css';
 
 class Root extends React.Component {
-  state = {
-    currentUser: FAKE_USER
-  };
 
-  handleLogin = user => {
-    this.setState({ currentUser: user });
-  };
-
-  handleLogout = () => {
-    this.setState({ currentUser: null });
-  };
 
   render() {
-    const {currentUser} = this.state;
-
     return (
-      <UserContext.Provider value={{
-        user: currentUser,
-        onLogin: this.handleLogin,
-        onLogout: this.handleLogout
-      }}>
-        {currentUser ? <MainPage /> : <LoginPage />}
-      </UserContext.Provider>
+      <UserConsumer>
+        {({user}) => user ? <MainPage /> : <LoginPage />}
+      </UserConsumer>
     );
   }
 }
 
-ReactDOM.render(<Root />, document.querySelector('#root'));
+ReactDOM.render(
+  <UserProvider>
+    <Root />
+  </UserProvider>,
+  document.querySelector('#root'));

@@ -1,16 +1,16 @@
 import React from 'react';
 import Header from './Header';
 import MessageList from './MessageList';
-import UserContext from './UserContext'
+import { UserConsumer } from './UserContext'
 const MyFooter = () => (
-  <UserContext.Consumer>
+  <UserConsumer>
     {
       ({user}) => <center><h5><i>By: {user.firstName} {user.lastName}</i></h5></center>
     }
-  </UserContext.Consumer>
+  </UserConsumer>
 );
 
-const MainPage = ({ onLogout }) => (
+const MainPage = () => (
   <main>
     <Header/>
     <MessageList />
