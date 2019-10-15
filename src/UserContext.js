@@ -2,7 +2,6 @@ import React from 'react';
 import { FAKE_USER } from './api';
 
 const { Provider, Consumer } = React.createContext({});
-// Context.Consumer, Context.Provider
 
 class UserProvider extends React.Component {
     state = {

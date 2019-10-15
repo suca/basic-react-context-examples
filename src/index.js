@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import LoginPage from './LoginPage';
 import MainPage from './MainPage';
 import { UserProvider, UserConsumer } from './UserContext';
-import { EmailProvider, EmailConsumer } from './EmailContext';
+import { EmailProvider, } from './EmailContext';
+import { ColorProvider } from './ColorConsumer';
+import { MyFancyButton } from './MainPage';
 import './index.css';
 
 class Root extends React.Component {
@@ -23,5 +25,17 @@ ReactDOM.render(
     <EmailProvider>
       <Root />
     </EmailProvider>
+    <footer>
+      <MyFancyButton text={'No Background'} />
+      <ColorProvider color={'red'}>
+        <MyFancyButton text={'Click Me Red!'} />
+      </ColorProvider>
+      <ColorProvider color={'yellow'}>
+        <MyFancyButton text={'Click Me Yellow!'} />
+      </ColorProvider>
+      <ColorProvider color={'blue'}>
+        <MyFancyButton text={'Click Me Blue!'} />
+      </ColorProvider>
+    </footer>
   </UserProvider>,
   document.querySelector('#root'));
