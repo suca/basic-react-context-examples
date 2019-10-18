@@ -1,7 +1,9 @@
 import React from 'react';
 import { fetchEmails, fetchLatestEmails } from './api';
 import { withNotifier } from './NotificationContext';
-const { Provider, Consumer } = React.createContext();
+
+const EmailContext = React.createContext();
+const { Provider, Consumer } = EmailContext;
 
 class EmailProvider extends React.Component {
     state = {
@@ -60,4 +62,8 @@ class EmailProvider extends React.Component {
 
 // We are doing this because 'notifier' props wasn't part of the Email Provider
 const wrapped = withNotifier(EmailProvider);
-export { wrapped as EmailProvider, Consumer as EmailConsumer };
+export {
+    wrapped as EmailProvider,
+    Consumer as EmailConsumer,
+    EmailContext
+};

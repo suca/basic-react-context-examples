@@ -1,29 +1,24 @@
-import React from 'react';
-import { UserConsumer } from './UserContext';
-import { EmailConsumer } from './EmailContext';
+import React, { useContext } from 'react';
+import { UserContext } from './UserContext';
+import { EmailContext } from './EmailContext';
 
-const MessageList = () => (
-  <UserConsumer>
-    {({user}) => (
-      <EmailConsumer>
-        {({emails, loading, error, onSelectEmail}) => (
-            <div className="MessageList">
-              {
-                loading ? <div className="no-messages"></div> : emails.length === 0 ?
-                  <div className="no-messages">
-                    Your mailbox is empty, <b>{user.firstName} {user.lastName}!</b> 🎉
-                  </div>
-                : <ul>
-                  {emails.map(email => <Email key={email.id} email={email} onClickItem={() => onSelectEmail(email)} />)}
-                </ul>
-              }
-            </div>
-          )
-        }
-      </EmailConsumer>
-    )}
-  </UserConsumer>
-);
+const MessageList = () => {
+  const { user } = useContext(UserContext);
+  const { emails, loading, onSelectEmail } = useContext(EmailContext);
+
+  return (
+    <div className="MessageList">
+      {
+        loading ? <div className="no-messages"></div> : emails.length === 0 ?
+          <div className="no-messages">
+            Your mailbox is empty, <b>{user.firstName} {user.lastName}!</b> 🎉
+          </div>
+        : <ul>
+          {emails.map(email => <Email key={email.id} email={email} onClickItem={() => onSelectEmail(email)} />)}
+        </ul>
+      }
+    </div>
+)};
 
 const Email = ({ email, onClickItem }) => (
   <li onClick={onClickItem}>
